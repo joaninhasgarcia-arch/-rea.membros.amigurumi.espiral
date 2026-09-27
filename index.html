@@ -1,356 +1,1302 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amigurumi Espiral Premium</title>
-<style>
-:root {
- --gold:#d8b56a;
- --bg:#090909;
- --card:#141414;
- --text:#f8f5ee;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#070a08" />
+    <title>Amigurumi Espiral Natalino - Área de Membros</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              gold: '#e4be71',
+              card: '#0f1812',
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+      :root {
+        --bg: #070d09;
+        --card: #0f1812;
+        --card2: #142018;
+        --line: rgba(255, 255, 255, 0.09);
+        --text: #fbf8f2;
+        --muted: #a7b5a9;
+        --green: #8cb878;
+        --green2: #527542;
+        --gold: #e4be71;
+        --red: #d13b30;
+        --terr: #d13b30;
+        --nav: 72px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background-color: var(--bg);
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 75% 0%, rgba(228, 190, 113, 0.07), transparent 32%),
+          radial-gradient(circle at 20% 25%, rgba(209, 59, 48, 0.06), transparent 35%),
+          radial-gradient(circle at 60% 65%, rgba(140, 184, 120, 0.07), transparent 38%),
+          var(--bg);
+        color: var(--text);
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .rail::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .rail::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 999px;
+      }
+
+      .rail::-webkit-scrollbar-thumb {
+        background: rgba(228, 190, 113, 0.25);
+        border-radius: 999px;
+      }
+
+      .rail::-webkit-scrollbar-thumb:hover {
+        background: var(--gold);
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .spin {
+        animation: spin 0.8s linear infinite;
+      }
+    </style>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel" data-type="module">
+
+const HERO_BG_IMAGE = 'https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&q=80&w=2000';
+const FEATURE_BG_IMAGE = 'https://images.unsplash.com/photo-1605000522037-775b112674e7?auto=format&fit=crop&q=80&w=2000';
+const MATERIALS_BG_IMAGE = 'https://images.unsplash.com/photo-1606836486026-66f8ec47a615?auto=format&fit=crop&q=80&w=2000';
+const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/13g83rN3_KlJ5KprMgIONk5CWuVGxTrI0';
+
+const INITIAL_MODULES = [
+  {
+    id: "spiral_characters",
+    title: "Espiral Natalino: Pingentes & Personagens",
+    description: "Pingentes em espiral que giram com o vento: Papai Noel, Renas, Boneco de Neve, Gingerbread, Grinch e Ursinho.",
+    lessons: [
+      { id: "spiral-01-biscoito", order: 1, title: "Pingente Espiral de Biscoito (Gingerbread)", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=MiCQAQRE0t8", youtubeId: "MiCQAQRE0t8", thumbnail: "https://i.ytimg.com/vi/MiCQAQRE0t8/hqdefault.jpg", isNew: true },
+      { id: "spiral-02-neve", order: 2, title: "Pingente Espiral de Boneco de Neve", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=U1JoUPmK3zs", youtubeId: "U1JoUPmK3zs", thumbnail: "https://i.ytimg.com/vi/U1JoUPmK3zs/hqdefault.jpg", isNew: true },
+      { id: "spiral-03-rena", order: 3, title: "Pingente Espiral de Rena Natalina", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=ceXTh4AHU-Q", youtubeId: "ceXTh4AHU-Q", thumbnail: "https://i.ytimg.com/vi/ceXTh4AHU-Q/hqdefault.jpg", isNew: true },
+      { id: "spiral-04-noel", order: 4, title: "Pingente Espiral de Papai Noel", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=i4x-rm4piQY", youtubeId: "i4x-rm4piQY", thumbnail: "https://i.ytimg.com/vi/i4x-rm4piQY/hqdefault.jpg", isNew: true },
+      { id: "spiral-05-grinch", order: 5, title: "Pingente Espiral do Grinch em Amigurumi", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=73ZkACepXzU", youtubeId: "73ZkACepXzU", thumbnail: "https://i.ytimg.com/vi/73ZkACepXzU/hqdefault.jpg", isNew: true },
+      { id: "spiral-06-ursinho", order: 6, title: "Pingente Espiral de Ursinho Natalino", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=LfOaW0il0IA", youtubeId: "LfOaW0il0IA", thumbnail: "https://i.ytimg.com/vi/LfOaW0il0IA/hqdefault.jpg", isNew: true },
+      { id: "spiral-07-boneco-espiral", order: 7, title: "Boneco de Neve em Espiral Natalino", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=4TsK-P17elQ", youtubeId: "4TsK-P17elQ", thumbnail: "https://i.ytimg.com/vi/4TsK-P17elQ/hqdefault.jpg", isNew: true },
+      { id: "spiral-08-tecer-boneco", order: 8, title: "Como Tecer Boneco de Neve em Espiral", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=8IuCsj8kJHQ", youtubeId: "8IuCsj8kJHQ", thumbnail: "https://i.ytimg.com/vi/8IuCsj8kJHQ/hqdefault.jpg", isNew: true },
+      { id: "spiral-09-wind-spinner", order: 9, title: "Enfeite Espiral Boneco de Neve (Wind Spinner)", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=YmiQL_s9BOY", youtubeId: "YmiQL_s9BOY", thumbnail: "https://i.ytimg.com/vi/YmiQL_s9BOY/hqdefault.jpg", isNew: true },
+      { id: "spiral-10-tecer-reno", order: 10, title: "Como Tecer Rena em Espiral em Amigurumi", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=qQdigGwSyQ8", youtubeId: "qQdigGwSyQ8", thumbnail: "https://i.ytimg.com/vi/qQdigGwSyQ8/hqdefault.jpg", isNew: true },
+      { id: "spiral-11-espiral-boneco", order: 11, title: "Espiral de Boneco de Neve Original", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=QLQE9ujUhE0", youtubeId: "QLQE9ujUhE0", thumbnail: "https://i.ytimg.com/vi/QLQE9ujUhE0/hqdefault.jpg", isNew: true },
+      { id: "spiral-12-noel-facil", order: 12, title: "Espiral Natalino de Papai Noel Fácil e Lindo", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=dYKMWY1lIW8", youtubeId: "dYKMWY1lIW8", thumbnail: "https://i.ytimg.com/vi/dYKMWY1lIW8/hqdefault.jpg", isNew: true },
+      { id: "spiral-13-botas-pantufas", order: 13, title: "Botas Pantufas de Papai Noel a Crochê", category: "spiral_characters", youtubeUrl: "https://www.youtube.com/watch?v=ei9-9OkecF4", youtubeId: "ei9-9OkecF4", thumbnail: "https://i.ytimg.com/vi/ei9-9OkecF4/hqdefault.jpg", isNew: true }
+    ]
+  },
+  {
+    id: "spiral_decorations",
+    title: "Espiral Natalino: Árvores & Decorações",
+    description: "Pinheiros em espiral, efeitos mágicos com luzes LED, enfeites que giram, mantas e ornamentos.",
+    lessons: [
+      { id: "spiral-14-arvore-regalos-1", order: 1, title: "Árvore de Natal com Presentes em Amigurumi - Parte 1", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=wx6QoFou9Ig", youtubeId: "wx6QoFou9Ig", thumbnail: "https://i.ytimg.com/vi/wx6QoFou9Ig/hqdefault.jpg", isNew: true },
+      { id: "spiral-15-arvore-regalos-2", order: 2, title: "Árvore de Natal com Presentes em Amigurumi - Parte 2", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=-0mhsKLd8AY", youtubeId: "-0mhsKLd8AY", thumbnail: "https://i.ytimg.com/vi/-0mhsKLd8AY/hqdefault.jpg", isNew: true },
+      { id: "spiral-16-pino-tira", order: 3, title: "Pinheiro de Natal em Espiral (Com Apenas uma Tira Tecida)", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=v35Q7QLmZPo", youtubeId: "v35Q7QLmZPo", thumbnail: "https://i.ytimg.com/vi/v35Q7QLmZPo/hqdefault.jpg", isNew: true },
+      { id: "spiral-17-pino-efeito-magico", order: 4, title: "Pinheiro Natalino em Espiral com Efeito Mágico", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=VGXk6PEu85o", youtubeId: "VGXk6PEu85o", thumbnail: "https://i.ytimg.com/vi/VGXk6PEu85o/hqdefault.jpg", isNew: true },
+      { id: "spiral-18-arvore-crochet", order: 5, title: "Árvore de Natal em Espiral a Crochê (Fácil e Rápido)", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=LWlPbZg9xj0", youtubeId: "LWlPbZg9xj0", thumbnail: "https://i.ytimg.com/vi/LWlPbZg9xj0/hqdefault.jpg", isNew: true },
+      { id: "spiral-19-spinner-original", order: 6, title: "Spinner / Espiral Natalino Fácil e Original", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=elBQgtOArkU", youtubeId: "elBQgtOArkU", thumbnail: "https://i.ytimg.com/vi/elBQgtOArkU/hqdefault.jpg", isNew: true },
+      { id: "spiral-20-adorno-facil", order: 7, title: "Espiral Natalina a Crochê - Passo a Passo", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=onSB617Q9AE", youtubeId: "onSB617Q9AE", thumbnail: "https://i.ytimg.com/vi/onSB617Q9AE/hqdefault.jpg", isNew: true },
+      { id: "spiral-21-espiral-luzes", order: 8, title: "Espiral Natalino com Luzes | Boneco de Neve Pendente", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=EVklNjqugS4", youtubeId: "EVklNjqugS4", thumbnail: "https://i.ytimg.com/vi/EVklNjqugS4/hqdefault.jpg", isNew: true },
+      { id: "spiral-22-santa-led-1", order: 9, title: "Espiral de Papai Noel com Luzes LED (Gira e Brilha) - Parte 1", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=eL3V_0f-ZII", youtubeId: "eL3V_0f-ZII", thumbnail: "https://i.ytimg.com/vi/eL3V_0f-ZII/hqdefault.jpg", isNew: true },
+      { id: "spiral-23-santa-led-2", order: 10, title: "Espiral de Papai Noel com Luzes LED - Parte 2 (Final)", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=RLL3aouPJYU", youtubeId: "RLL3aouPJYU", thumbnail: "https://i.ytimg.com/vi/RLL3aouPJYU/hqdefault.jpg", isNew: true },
+      { id: "spiral-24-manta-natalina", order: 11, title: "Manta Natalina a Crochê com Quadros de Árvore", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=o_12Iob4euE", youtubeId: "o_12Iob4euE", thumbnail: "https://i.ytimg.com/vi/o_12Iob4euE/hqdefault.jpg", isNew: true },
+      { id: "spiral-25-adornos-queridos", order: 12, title: "Enfeites Natalinos Deslumbrantes em Crochê", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=3ZoSV_hEOYY", youtubeId: "3ZoSV_hEOYY", thumbnail: "https://i.ytimg.com/vi/3ZoSV_hEOYY/hqdefault.jpg", isNew: true },
+      { id: "spiral-26-decoracao-natal", order: 13, title: "Lindos Enfeites para Decoração de Natal", category: "spiral_decorations", youtubeUrl: "https://www.youtube.com/watch?v=YqjwkBtBeRY", youtubeId: "YqjwkBtBeRY", thumbnail: "https://i.ytimg.com/vi/YqjwkBtBeRY/hqdefault.jpg", isNew: true }
+    ]
+  },
+  {
+    id: "sales",
+    title: "Marketing, vendas e precificação",
+    description: "Divulgação, preço, embalagem, encomendas e envio das suas peças.",
+    lessons: [
+      { id: "sales-1", order: 1, title: "Aula 01 - Por que vender amigurumi pelo Instagram é mais fácil", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=Fdtb9lQPeag", youtubeId: "Fdtb9lQPeag", thumbnail: "https://img.youtube.com/vi/Fdtb9lQPeag/hqdefault.jpg", isNew: false },
+      { id: "sales-2", order: 2, title: "Aula 02 - O que não falar no seu perfil de venda de amigurumi", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=kTLuSlcLoFs", youtubeId: "kTLuSlcLoFs", thumbnail: "https://img.youtube.com/vi/kTLuSlcLoFs/hqdefault.jpg", isNew: false },
+      { id: "sales-3", order: 3, title: "Aula 03 - O erro que você não pode cometer ao vender pelo Instagram", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=-M4DupQyZzE", youtubeId: "-M4DupQyZzE", thumbnail: "https://img.youtube.com/vi/-M4DupQyZzE/hqdefault.jpg", isNew: false },
+      { id: "sales-4", order: 4, title: "Aula 04 - Como fazer fotos maravilhosas das suas peças", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=bLVTElI_L9w", youtubeId: "bLVTElI_L9w", thumbnail: "https://img.youtube.com/vi/bLVTElI_L9w/hqdefault.jpg", isNew: false },
+      { id: "sales-5", order: 5, title: "Aula 05 - Como calcular o preço do seu amigurumi", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=SOUIIEME_FM", youtubeId: "SOUIIEME_FM", thumbnail: "https://img.youtube.com/vi/SOUIIEME_FM/hqdefault.jpg", isNew: false },
+      { id: "sales-6", order: 6, title: "Aula 06 - Pronta entrega ou encomendas?", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=v1UxKP5rvx0", youtubeId: "v1UxKP5rvx0", thumbnail: "https://img.youtube.com/vi/v1UxKP5rvx0/hqdefault.jpg", isNew: false },
+      { id: "sales-7", order: 7, title: "Aula 07 - Como conseguir as primeiras encomendas", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=RFtNUFphB1s", youtubeId: "RFtNUFphB1s", thumbnail: "https://img.youtube.com/vi/RFtNUFphB1s/hqdefault.jpg", isNew: false },
+      { id: "sales-8", order: 8, title: "Aula 08 - Como valorizar sua loja de amigurumis", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=hsLWy7DizWc", youtubeId: "hsLWy7DizWc", thumbnail: "https://img.youtube.com/vi/hsLWy7DizWc/hqdefault.jpg", isNew: false },
+      { id: "sales-9", order: 9, title: "Aula 09 - Embalagens para diferentes tipos de amigurumi", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=wSdlaC83YzM", youtubeId: "wSdlaC83YzM", thumbnail: "https://img.youtube.com/vi/wSdlaC83YzM/hqdefault.jpg", isNew: false },
+      { id: "sales-10", order: 10, title: "Aula 10 - Como enviar amigurumis para outros estados", category: "sales", youtubeUrl: "https://www.youtube.com/watch?v=TTIRqtu8CMo", youtubeId: "TTIRqtu8CMo", thumbnail: "https://img.youtube.com/vi/TTIRqtu8CMo/hqdefault.jpg", isNew: false }
+    ]
+  },
+  {
+    id: "photos",
+    title: "Fotografia que vende",
+    description: "Fotos mais bonitas e estratégicas para destacar seu trabalho.",
+    lessons: [
+      { id: "photo-1", order: 1, title: "Aula 01 - A técnica que economiza seu tempo ao fazer fotos do seu amigurumi", category: "photos", youtubeUrl: "https://www.youtube.com/watch?v=_pRgf7GPNiE", youtubeId: "_pRgf7GPNiE", thumbnail: "https://img.youtube.com/vi/_pRgf7GPNiE/hqdefault.jpg", isNew: false },
+      { id: "photo-2", order: 2, title: "Aula 02 - O segredo da composição de cenário para vender mais", category: "photos", youtubeUrl: "https://www.youtube.com/watch?v=45ny-sgC8uQ", youtubeId: "45ny-sgC8uQ", thumbnail: "https://img.youtube.com/vi/45ny-sgC8uQ/hqdefault.jpg", isNew: false },
+      { id: "photo-3", order: 3, title: "Aula 03 - Como atrair mais clientes pelo seu feed", category: "photos", youtubeUrl: "https://www.youtube.com/watch?v=vDwJz6HSF8k", youtubeId: "vDwJz6HSF8k", thumbnail: "https://img.youtube.com/vi/vDwJz6HSF8k/hqdefault.jpg", isNew: false },
+      { id: "photo-4", order: 4, title: "Aula 04 - Como tirar fotos profissionais do seu amigurumi com uma técnica simples", category: "photos", youtubeUrl: "https://www.youtube.com/watch?v=WTRdbQduFEc", youtubeId: "WTRdbQduFEc", thumbnail: "https://img.youtube.com/vi/WTRdbQduFEc/hqdefault.jpg", isNew: false },
+      { id: "photo-5", order: 5, title: "Aula 05 - Dois estilos de fotos para receber mais encomendas", category: "photos", youtubeUrl: "https://www.youtube.com/watch?v=L8-aXVXtoXA", youtubeId: "L8-aXVXtoXA", thumbnail: "https://img.youtube.com/vi/L8-aXVXtoXA/hqdefault.jpg", isNew: false },
+      { id: "photo-6", order: 6, title: "Aula 06 - Como a fotografia pode ajudar na venda de amigurumis", category: "photos", youtubeUrl: "https://www.youtube.com/watch?v=IPZn2q9ojw0", youtubeId: "IPZn2q9ojw0", thumbnail: "https://img.youtube.com/vi/IPZn2q9ojw0/hqdefault.jpg", isNew: false },
+      { id: "photo-7", order: 7, title: "Aula 07 - A foto que vai vender seu amigurumi", category: "photos", youtubeUrl: "https://www.youtube.com/watch?v=k8Xxguo1yPk", youtubeId: "k8Xxguo1yPk", thumbnail: "https://img.youtube.com/vi/k8Xxguo1yPk/hqdefault.jpg", isNew: false }
+    ]
+  }
+];
+
+const ALL_LESSONS = INITIAL_MODULES.flatMap(m =>
+  m.lessons.map(l => ({
+    ...l,
+    moduleId: m.id,
+    moduleTitle: m.title,
+    moduleDescription: m.description,
+  }))
+);
+
+function normalizeText(s) {
+  return (s || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
-.hero{padding:70px 7%;background:radial-gradient(circle at top right,#45321a,#090909 45%);min-height:320px}
-.tag{color:#111;background:var(--gold);padding:8px 18px;border-radius:50px;font-weight:700;display:inline-block}
-h1{font-size:52px;max-width:800px;margin:25px 0 10px}
-.hero p{font-size:20px;color:#c9c4bb;max-width:650px}
-.container{padding:40px 7%}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
-.card{background:var(--card);border-radius:22px;overflow:hidden;border:1px solid #242424;transition:.3s;box-shadow:0 15px 40px #0007}
-.card:hover{transform:translateY(-8px);border-color:var(--gold)}
-.cover{height:170px;background:linear-gradient(135deg,#59401d,#d8b56a);display:flex;align-items:center;justify-content:center}
-.cover span{font-size:55px;font-weight:900;color:#fff}
-.info{padding:22px}
-.info p{color:#aaa;min-height:40px}
-a{display:inline-block;background:#fff;color:#111;padding:12px 24px;border-radius:30px;text-decoration:none;font-weight:bold}
-footer{padding:40px;text-align:center;color:#777}
-</style>
-</head>
-<body>
-<section class="hero">
-<div class="tag">ÁREA DE MEMBROS PREMIUM</div>
-<h1>Amigurumi Espiral Natalino</h1>
-<p>Aprenda a criar peças exclusivas com a técnica do amigurumi em espiral através de uma experiência elegante e organizada.</p>
-</section>
-<section class="container">
-<div class="header"><h2>Suas Videoaulas</h2><span>26 aulas</span></div>
-<div class="grid">
-<div class="card">
-  <div class="cover">
-    <span>01</span>
-  </div>
-  <div class="info">
-    <h3>Aula 01</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/MiCQAQRE0t8" target="_blank">Assistir agora</a>
-  </div>
-</div>
 
+function cleanTitle(t) {
+  return (t || '')
+    .replace(/^Aula\s*\d+\s*[ -]\s*/i, '')
+    .replace(/^Colgante\s+/i, 'Pingente ')
+    .replace(/\s*\|\s*.*$/, '')
+    .trim();
+}
 
-<div class="card">
-  <div class="cover">
-    <span>02</span>
-  </div>
-  <div class="info">
-    <h3>Aula 02</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/U1JoUPmK3zs" target="_blank">Assistir agora</a>
-  </div>
-</div>
+function getThumbnailUrl(l) {
+  return l.thumbnail || `https://i.ytimg.com/vi/${l.youtubeId}/hqdefault.jpg`;
+}
 
+const Footer = () => {
+  return (
+    <footer className="border-t border-white/10 py-8 pb-28 sm:pb-12 text-[#859688] text-xs text-center">
+      <div className="w-[min(1400px,calc(100%-48px))] max-sm:w-[calc(100%-28px)] mx-auto flex flex-col items-center gap-1.5">
+        <div className="flex items-center gap-1 text-[var(--gold)] font-bold text-sm">
+          <span>🎄</span> AMIGURUMI ESPIRAL NATALINO <span>🎄</span>
+        </div>
+        <div>
+          Área de membros especial de Natal sem necessidade de login. Seu progresso fica gravado neste aparelho.
+        </div>
+      </div>
+    </footer>
+  );
+};
 
-<div class="card">
-  <div class="cover">
-    <span>03</span>
-  </div>
-  <div class="info">
-    <h3>Aula 03</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/ceXTh4AHU-Q" target="_blank">Assistir agora</a>
-  </div>
-</div>
+const LessonCard = ({ lesson, isCompleted, onOpen }) => {
+  const displayTitle = cleanTitle(lesson.title);
+  return (
+    <article
+      onClick={onOpen}
+      title={displayTitle}
+      className="scroll-snap-align-start border border-white/[0.08] hover:border-[var(--gold)]/60 bg-[var(--card)] hover:bg-[#142219] rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/70 flex flex-col group h-full"
+    >
+      <div className="aspect-video relative bg-gradient-to-br from-[#1b2b20] to-[#0c140e] overflow-hidden flex-shrink-0">
+        <img
+          src={getThumbnailUrl(lesson)}
+          alt={displayTitle}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+          referrerPolicy="no-referrer"
+          onError={(e) => {
+            e.currentTarget.style.opacity = '0.2';
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060a07e0] via-transparent to-transparent" />
+        <span className="absolute z-10 left-3.5 bottom-3 w-[36px] h-[36px] rounded-full grid place-items-center bg-[var(--gold)] text-[#15120a] font-black text-xs shadow-md transition-transform group-hover:scale-110">
+          ▶
+        </span>
+        {lesson.isNew && (
+          <span className="absolute z-10 right-2.5 top-2.5 bg-[var(--red)] text-white text-[9px] font-black tracking-wider px-2 py-1 rounded-[7px] uppercase shadow-md shadow-red-950/40">
+            NATAL 🎅
+          </span>
+        )}
+        {isCompleted && (
+          <span className="absolute z-10 right-2.5 bottom-3 bg-[var(--green)] text-[#10150e] w-[24px] h-[24px] rounded-full grid place-items-center font-black text-xs shadow">
+            ✓
+          </span>
+        )}
+      </div>
+      <div className="p-4 flex flex-col flex-1 justify-between gap-3">
+        <div>
+          <div className="text-[var(--gold)] text-[9px] uppercase tracking-[1.5px] font-black mb-1.5 line-clamp-1">
+            {lesson.moduleTitle} • Aula {String(lesson.order).padStart(2, '0')}
+          </div>
+          <h4 className="text-sm leading-snug font-bold text-[var(--text)] group-hover:text-white break-words m-0 min-h-[42px] line-clamp-3">
+            {displayTitle}
+          </h4>
+        </div>
+        <div className="flex justify-between items-center pt-2.5 border-t border-white/[0.05] text-[#8d958e] text-[11px] font-medium mt-auto">
+          <span>{isCompleted ? 'Concluída' : 'Videoaula'}</span>
+          <span className="text-[var(--gold)] font-bold group-hover:underline flex items-center gap-1">
+            Assistir ▶
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+};
 
+const Header = ({
+  progressPct,
+  onGoHome,
+  onScrollTo,
+  onOpenSearch,
+  isScrolled
+}) => {
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 h-[var(--nav)] transition-all duration-200 flex items-center ${
+        isScrolled
+          ? 'bg-[#070d09f0] backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/50'
+          : 'bg-gradient-to-b from-[#070d09fa] via-[#070d09be] to-transparent'
+      }`}
+    >
+      <div className="w-[min(1400px,calc(100%-48px))] max-sm:w-[calc(100%-24px)] mx-auto flex items-center justify-between">
+        <div className="flex items-center gap-7">
+          <button
+            onClick={onGoHome}
+            className="flex items-center gap-2 text-[20px] max-sm:text-[16px] font-black tracking-[-0.5px] cursor-pointer bg-transparent border-0 text-[var(--text)] transition-transform hover:scale-[1.02] p-0"
+          >
+            <i className="not-italic w-[34px] h-[34px] max-sm:w-[30px] max-sm:h-[30px] rounded-xl grid place-items-center bg-gradient-to-br from-[var(--red)] via-[#c73329] to-[var(--gold)] text-white shadow-md shadow-red-900/40 font-black text-sm flex-shrink-0">
+              🎄
+            </i>
+            <span className="flex items-center gap-1 whitespace-nowrap">
+              ESPIRAL <span className="text-[var(--gold)] font-extrabold">NATALINO</span>
+            </span>
+          </button>
+          <nav className="hidden md:flex items-center gap-6 text-[15px] font-medium text-[#d8ded9]">
+            <button
+              onClick={onGoHome}
+              className="cursor-pointer hover:text-white transition-colors border-0 bg-transparent"
+            >
+              Início
+            </button>
+            <button
+              onClick={() => onScrollTo('trilhas')}
+              className="cursor-pointer hover:text-white transition-colors border-0 bg-transparent"
+            >
+              Coleção Natalina
+            </button>
+            <button
+              onClick={() => onScrollTo('materiais')}
+              className="cursor-pointer hover:text-white transition-colors border-0 bg-transparent"
+            >
+              Materiais & PDFs
+            </button>
+          </nav>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 border border-white/10 bg-white/[0.04] rounded-full text-[#d6ded8]">
+            <span className="w-2 h-2 rounded-full bg-[var(--green)]"></span>
+            {progressPct}% concluído
+          </span>
+          <button
+            onClick={onOpenSearch}
+            aria-label="Buscar aula"
+            className="w-[40px] h-[40px] rounded-full border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] cursor-pointer grid place-items-center text-lg text-[var(--text)] transition-colors"
+          >
+            🔍
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+};
 
-<div class="card">
-  <div class="cover">
-    <span>04</span>
-  </div>
-  <div class="info">
-    <h3>Aula 04</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/i4x-rm4piQY" target="_blank">Assistir agora</a>
-  </div>
-</div>
+const Hero = ({ totalLessons, onContinue, onExplore }) => {
+  return (
+    <section className="min-h-[720px] max-sm:min-h-[620px] relative flex items-end pt-[calc(var(--nav)+60px)] pb-[84px] max-sm:pb-[56px] overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-transform scale-[1.015]"
+        style={{
+          backgroundImage: `linear-gradient(90deg, #070d09 0%, rgba(7,13,9,0.92) 40%, rgba(7,13,9,0.3) 78%), linear-gradient(0deg, #070d09 0%, transparent 52%), url('${HERO_BG_IMAGE}')`,
+        }}
+      />
+      <div className="w-[min(1400px,calc(100%-48px))] max-sm:w-[calc(100%-28px)] mx-auto relative z-10 max-w-[740px]">
+        <div className="flex items-center gap-2 text-[var(--gold)] uppercase tracking-[2px] text-[11px] font-black before:content-[''] before:w-7 before:h-[2px] before:bg-[var(--gold)]">
+          Edição Especial de Natal • Amigurumi em Espiral
+        </div>
+        <h1 className="text-[clamp(32px,5.5vw,76px)] max-sm:text-[36px] leading-[1.06] tracking-[-2px] max-sm:tracking-[-1px] my-5 font-black text-white break-words">
+          Crie a magia do Natal com <span className="text-[var(--gold)]">amigurumis em espiral.</span>
+        </h1>
+        <p className="text-[18px] max-sm:text-[15px] leading-[1.65] text-[#d6ded8] max-w-[640px] m-0 break-words">
+          Aprenda a tecer lindos enfeites natalinos, pingentes que giram com o vento (wind spinners), pinheiros iluminados e personagens em espiral que conquistam encomendas imediatas.
+        </p>
+        <div className="flex flex-wrap gap-2.5 my-6">
+          <span className="text-xs px-3.5 py-2 border border-white/10 bg-[#070d0999] backdrop-blur-md rounded-full text-white/95">
+            <strong className="text-[var(--gold)] font-bold">{totalLessons}</strong> videoaulas
+          </span>
+          <span className="text-xs px-3.5 py-2 border border-white/10 bg-[#070d0999] backdrop-blur-md rounded-full text-white/95">
+            <strong className="text-white font-bold">4</strong> trilhas completas
+          </span>
+          <span className="text-xs px-3.5 py-2 border border-white/10 bg-[#070d0999] backdrop-blur-md rounded-full text-white/95 flex items-center gap-1.5">
+            <span className="text-[var(--red)]">▶</span> Acesso direto, sem login
+          </span>
+        </div>
+        <div className="flex flex-wrap gap-3 max-sm:flex-col">
+          <button
+            onClick={onContinue}
+            className="h-[52px] px-7 rounded-[14px] bg-[var(--gold)] hover:bg-[#edd49d] text-[#141209] font-black text-[15px] flex items-center justify-center gap-2 cursor-pointer transition-transform hover:-translate-y-0.5 shadow-xl shadow-amber-900/20 border-0"
+          >
+            ▶ Continuar assistindo
+          </button>
+          <button
+            onClick={onExplore}
+            className="h-[52px] px-6 rounded-[14px] bg-white/[0.08] hover:bg-white/[0.14] border border-white/15 text-white font-extrabold text-[15px] flex items-center justify-center gap-2 cursor-pointer transition-transform hover:-translate-y-0.5"
+          >
+            Explorar coleção de Natal
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
 
+const ContinueSection = ({
+  lesson,
+  progressPct,
+  onOpenLesson
+}) => {
+  const displayTitle = cleanTitle(lesson.title);
+  return (
+    <section className="mb-14">
+      <div className="flex items-end justify-between mb-4 gap-4">
+        <div>
+          <h2 className="text-[clamp(22px,2.5vw,31px)] tracking-[-1px] font-bold m-0 text-white">
+            Continue de onde parou
+          </h2>
+          <div className="text-[13px] text-[var(--muted)] mt-1.5">
+            Seu progresso natalino fica salvo automaticamente neste aparelho.
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-[minmax(300px,460px)_1fr] max-md:grid-cols-1 min-h-[270px] border border-white/10 rounded-[22px] overflow-hidden bg-gradient-to-br from-[#121c15] via-[#0f1712] to-[#0a100c] shadow-2xl shadow-black/50">
+        <div className="relative min-h-[220px]">
+          <img
+            src={getThumbnailUrl(lesson)}
+            alt={displayTitle}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r max-md:bg-gradient-to-t from-transparent via-transparent to-[#101913]" />
+        </div>
+        <div className="p-8 max-sm:p-5 flex flex-col justify-center">
+          <div className="text-[var(--gold)] text-[10px] tracking-[2px] uppercase font-black">
+            {lesson.moduleTitle} • Aula {String(lesson.order).padStart(2, '0')}
+          </div>
+          <h3 className="text-[25px] max-sm:text-[20px] font-bold my-2.5 leading-snug text-white break-words">
+            {displayTitle}
+          </h3>
+          <p className="text-[var(--muted)] leading-relaxed text-sm m-0 break-words">
+            {lesson.moduleDescription}
+          </p>
+          <div className="h-[5px] bg-white/[0.08] rounded-full my-4 overflow-hidden">
+            <span
+              className="block h-full bg-gradient-to-r from-[var(--green)] to-[var(--gold)] transition-all duration-300"
+              style={{ width: `${progressPct}%` }}
+            />
+          </div>
+          <div>
+            <button
+              onClick={() => onOpenLesson(lesson.id)}
+              className="h-[46px] px-6 rounded-[12px] bg-[var(--gold)] hover:bg-[#edd49d] text-[#141209] font-black text-sm flex items-center justify-center gap-2 cursor-pointer transition-transform hover:-translate-y-0.5 border-0 shadow-lg shadow-amber-950/30"
+            >
+              ▶ Continuar aula
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-<div class="card">
-  <div class="cover">
-    <span>05</span>
-  </div>
-  <div class="info">
-    <h3>Aula 05</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/73ZkACepXzU" target="_blank">Assistir agora</a>
-  </div>
-</div>
+const TrilhasSection = ({
+  modules,
+  completedIds,
+  dynamicTitles,
+  onOpenLesson,
+  onOpenModule
+}) => {
+  return (
+    <section id="trilhas" className="mb-14">
+      <div className="flex items-end justify-between mb-6 gap-4">
+        <div>
+          <span className="block mb-1 text-[var(--gold)] text-[11px] font-black tracking-[0.18em] uppercase">
+            COLEÇÃO EXCLUSIVA DE NATAL
+          </span>
+          <h2 className="text-[clamp(23px,2.5vw,31px)] tracking-[-1px] font-bold m-0 text-white">
+            Trilhas & Oficinas em Espiral
+          </h2>
+          <div className="text-[13px] text-[var(--muted)] mt-1.5">
+            Técnicas passo a passo para criar, fotografar, divulgar e vender seus amigurumis natalinos.
+          </div>
+        </div>
+      </div>
+      <div className="space-y-12">
+        {modules.map((m) => (
+          <div key={m.id} className="space-y-3.5">
+            <div className="flex items-end justify-between">
+              <div>
+                <h3 className="text-[clamp(20px,2vw,26px)] font-bold tracking-tight m-0 text-white flex items-center gap-2">
+                  {m.id.startsWith('spiral') && <span>🎄</span>}
+                  {m.title}
+                </h3>
+                <div className="text-[13px] text-[var(--muted)] mt-1">
+                  {m.description} • {m.lessons.length} aulas
+                </div>
+              </div>
+              <button
+                onClick={() => onOpenModule(m.id)}
+                className="text-[var(--gold)] hover:text-white font-extrabold text-xs tracking-wider uppercase cursor-pointer border-0 bg-transparent transition-colors"
+              >
+                VER TODAS
+              </button>
+            </div>
+            <div className="rail flex overflow-x-auto gap-3.5 pb-4 pt-1 px-1 scroll-smooth snap-x snap-mandatory">
+              {m.lessons.map((lesson) => {
+                const enrichedLesson = {
+                  ...lesson,
+                  title: dynamicTitles[lesson.youtubeId] || lesson.title,
+                  moduleId: m.id,
+                  moduleTitle: m.title,
+                  moduleDescription: m.description,
+                };
+                return (
+                  <div key={lesson.id} className="w-[260px] max-sm:w-[76vw] flex-shrink-0 snap-start">
+                    <LessonCard
+                      lesson={enrichedLesson}
+                      isCompleted={completedIds.includes(lesson.id)}
+                      onOpen={() => onOpenLesson(lesson.id)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
+const FeatureSection = ({ onExploreSales }) => {
+  return (
+    <section className="mt-8 mb-14">
+      <div className="grid grid-cols-[1fr_1.1fr] max-md:grid-cols-1 min-h-[330px] bg-[var(--card)] border border-white/10 rounded-[22px] overflow-hidden shadow-2xl shadow-black/40">
+        <div
+          className="relative min-h-[260px] bg-cover bg-center"
+          style={{ backgroundImage: `url('${FEATURE_BG_IMAGE}')` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r max-md:bg-gradient-to-t from-transparent via-transparent to-[#101913]" />
+        </div>
+        <div className="p-11 max-sm:p-7 flex flex-col justify-center">
+          <div className="text-[var(--gold)] text-[10px] tracking-[2px] uppercase font-black mb-2 flex items-center gap-1.5">
+            <span>🎁</span> Vendas de Fim de Ano
+          </div>
+          <h3 className="text-[34px] max-sm:text-[26px] font-bold tracking-tight my-2 leading-tight text-white">
+            Do primeiro ponto em espiral às encomendas de Natal.
+          </h3>
+          <p className="text-[var(--muted)] leading-relaxed text-sm mb-6 max-w-lg">
+            Combine a técnica do amigurumi em espiral com estratégias de fotos que valorizam os detalhes, precificação lucrativa, embalagens natalinas encantadoras e envios seguros.
+          </p>
+          <div>
+            <button
+              onClick={onExploreSales}
+              className="h-[46px] px-6 rounded-[12px] bg-gradient-to-r from-[var(--red)] to-[#ba2f25] hover:brightness-110 text-white font-black text-sm inline-flex items-center justify-center gap-2 cursor-pointer transition-transform hover:-translate-y-0.5 border-0 shadow-lg shadow-red-950/40"
+            >
+              Explorar vendas e precificação
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-<div class="card">
-  <div class="cover">
-    <span>06</span>
-  </div>
-  <div class="info">
-    <h3>Aula 06</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/LfOaW0il0IA" target="_blank">Assistir agora</a>
-  </div>
-</div>
+const MateriaisSection = ({
+  onResetProgress,
+  onHelpInfo
+}) => {
+  return (
+    <section id="materiais" className="scroll-mt-[calc(var(--nav)+18px)] pt-5 mb-16">
+      <div className="flex items-end justify-between mb-5 gap-4">
+        <div>
+          <span className="block mb-2 text-[var(--gold)] text-[11px] font-black tracking-[0.18em] uppercase">
+            BIBLIOTECA EXCLUSIVA DE NATAL
+          </span>
+          <h2 className="text-[clamp(23px,2.5vw,31px)] tracking-[-1px] font-bold m-0 text-white">
+            Materiais de Apoio & Receitas em PDF
+          </h2>
+          <div className="text-[13px] text-[var(--muted)] mt-1.5">
+            Moldes, gráficos em espiral e guias ilustrados para você tecer junto com as videoaulas.
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-[minmax(0,1.55fr)_minmax(270px,0.65fr)] max-lg:grid-cols-1 gap-5 items-stretch">
+        <article className="relative min-h-[390px] border border-[rgba(228,190,113,0.3)] rounded-[28px] max-sm:rounded-[22px] overflow-hidden bg-[#0d1610] shadow-2xl shadow-black/40">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `linear-gradient(90deg, rgba(7,13,9,0.98) 0%, rgba(7,13,9,0.91) 43%, rgba(7,13,9,0.35) 72%, rgba(7,13,9,0.2) 100%), linear-gradient(0deg, rgba(7,13,9,0.8), transparent 56%), url('${MATERIALS_BG_IMAGE}')`,
+            }}
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(228,190,113,0.18),transparent_35%)] pointer-events-none" />
+          <div className="relative z-10 w-[min(620px,66%)] max-lg:w-[75%] max-sm:w-full min-h-[390px] max-sm:min-h-[500px] p-10 max-sm:p-6 max-sm:pt-48 flex flex-col justify-center max-sm:justify-end items-start">
+            <div className="w-[58px] h-[58px] rounded-[18px] grid place-items-center mb-5 bg-gradient-to-br from-[var(--gold)] to-[#b0883d] text-[#15120b] text-[13px] font-black tracking-widest shadow-xl shadow-amber-950/40">
+              PDF
+            </div>
+            <div className="text-[var(--gold)] text-[10px] tracking-[2px] uppercase font-black flex items-center gap-1.5">
+              <span>📚</span> Acesso Complementar
+            </div>
+            <h3 className="text-[clamp(26px,3vw,38px)] max-sm:text-[25px] leading-[1.08] tracking-[-1.5px] max-sm:tracking-[-0.8px] my-3 font-bold text-white">
+              Tenha as receitas de espirais e enfeites abertas enquanto tece.
+            </h3>
+            <p className="text-[#c7d1c9] text-[15px] max-sm:text-[14px] leading-relaxed m-0">
+              Abra a biblioteca no Google Drive e consulte as receitas de Natal no celular, computador ou tablet sempre que precisar.
+            </p>
+            <div className="flex flex-wrap gap-2 my-5">
+              <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.07] text-[#ebeee9] text-[11px] font-bold">
+                Receitas passo a passo
+              </span>
+              <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.07] text-[#ebeee9] text-[11px] font-bold">
+                Espirais & Spinners
+              </span>
+              <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.07] text-[#ebeee9] text-[11px] font-bold">
+                Acesso pelo Drive
+              </span>
+            </div>
+            <a
+              href={DRIVE_FOLDER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between gap-5 min-w-[285px] max-sm:w-full max-sm:min-w-0 px-5 py-3.5 rounded-[14px] bg-[var(--gold)] hover:bg-[#ebd296] text-[#15120a] text-xs font-black tracking-wider no-underline shadow-xl shadow-amber-950/40 transition-transform hover:-translate-y-0.5"
+            >
+              <span>ABRIR BIBLIOTECA DE PDFs</span>
+              <b className="text-lg">↗</b>
+            </a>
+          </div>
+        </article>
+        <div className="grid gap-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
+          <article className="min-h-[186px] max-sm:min-h-0 p-6 rounded-[24px] border border-white/10 bg-gradient-to-br from-white/[0.065] to-white/[0.025] flex gap-4 items-start shadow-xl shadow-black/20">
+            <div className="flex-shrink-0 w-[45px] h-[45px] rounded-[15px] grid place-items-center bg-[var(--gold)]/15 border border-[var(--gold)]/30 text-[var(--gold)] font-black text-sm">
+              💾
+            </div>
+            <div>
+              <span className="block text-[var(--gold)] text-[9px] font-black tracking-[0.15em] mb-1">
+                PROGRESSO AUTOMÁTICO
+              </span>
+              <h4 className="text-lg font-bold m-0 mb-1.5 text-white">
+                Continue de onde parou
+              </h4>
+              <p className="text-[13px] leading-relaxed text-[var(--muted)] m-0 mb-3.5">
+                Suas aulas natalinas concluídas ficam salvas com segurança neste aparelho.
+              </p>
+              <button
+                onClick={onResetProgress}
+                className="text-[10px] font-black tracking-[0.08em] text-[var(--gold)] hover:underline border-0 bg-transparent p-0 cursor-pointer uppercase"
+              >
+                REINICIAR PROGRESSO
+              </button>
+            </div>
+          </article>
+          <article className="min-h-[186px] max-sm:min-h-0 p-6 rounded-[24px] border border-white/10 bg-gradient-to-br from-white/[0.065] to-white/[0.025] flex gap-4 items-start shadow-xl shadow-black/20">
+            <div className="flex-shrink-0 w-[45px] h-[45px] rounded-[15px] grid place-items-center bg-[var(--green)]/15 border border-[var(--green)]/30 text-[var(--green)] font-black text-sm">
+              🎧
+            </div>
+            <div>
+              <span className="block text-[var(--gold)] text-[9px] font-black tracking-[0.15em] mb-1">
+                ÁUDIO EM PORTUGUÊS
+              </span>
+              <h4 className="text-lg font-bold m-0 mb-1.5 text-white">
+                Tradução de Voz Ativada
+              </h4>
+              <p className="text-[13px] leading-relaxed text-[var(--muted)] m-0 mb-3.5">
+                Os vídeos já possuem configuração de áudio e legendas em português pré-ativada.
+              </p>
+              <button
+                onClick={onHelpInfo}
+                className="text-[10px] font-black tracking-[0.08em] text-[var(--green)] hover:underline border-0 bg-transparent p-0 cursor-pointer uppercase"
+              >
+                COMO AJUSTAR O ÁUDIO
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+};
 
+const SearchOverlay = ({
+  isOpen,
+  allLessons,
+  completedIds,
+  dynamicTitles,
+  onClose,
+  onOpenLesson
+}) => {
+  const [query, setQuery] = React.useState('');
+  const inputRef = React.useRef(null);
 
-<div class="card">
-  <div class="cover">
-    <span>07</span>
-  </div>
-  <div class="info">
-    <h3>Aula 07</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/wx6QoFou9Ig" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  React.useEffect(() => {
+    if (isOpen) {
+      setQuery('');
+      setTimeout(() => inputRef.current?.focus(), 60);
+    }
+  }, [isOpen]);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
-<div class="card">
-  <div class="cover">
-    <span>08</span>
-  </div>
-  <div class="info">
-    <h3>Aula 08</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/-0mhsKLd8AY" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  if (!isOpen) return null;
 
+  const normalizedQuery = normalizeText(query.trim());
+  const filtered = normalizedQuery
+    ? allLessons.filter((l) => {
+        const titleStr = dynamicTitles[l.youtubeId] || l.title;
+        const searchTarget = normalizeText(`${titleStr} ${l.moduleTitle || ''}`);
+        return searchTarget.includes(normalizedQuery);
+      })
+    : allLessons.slice(0, 12);
 
-<div class="card">
-  <div class="cover">
-    <span>09</span>
-  </div>
-  <div class="info">
-    <h3>Aula 09</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/4TsK-P17elQ" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  return (
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-[100] bg-[#030403dc] backdrop-blur-2xl p-[calc(var(--nav)+22px)_20px_30px] overflow-y-auto"
+    >
+      <div className="max-w-[950px] mx-auto">
+        <div className="h-[60px] border border-white/20 bg-[var(--card)] rounded-2xl flex items-center px-4 gap-3 shadow-2xl">
+          <span className="text-xl text-[var(--muted)]">🔍</span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar aula, peça ou tema..."
+            className="w-full border-0 outline-none bg-transparent text-white text-lg placeholder:text-white/40"
+          />
+          <button
+            onClick={onClose}
+            aria-label="Fechar busca"
+            className="border-0 bg-transparent text-2xl text-[var(--muted)] hover:text-white cursor-pointer px-1 transition-colors"
+          >
+            ✖
+          </button>
+        </div>
+        <div className="grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-4 mt-6">
+          {filtered.length > 0 ? (
+            filtered.map((item) => (
+              <LessonCard
+                key={item.id}
+                lesson={{
+                  ...item,
+                  title: dynamicTitles[item.youtubeId] || item.title,
+                }}
+                isCompleted={completedIds.includes(item.id)}
+                onOpen={() => {
+                  onClose();
+                  onOpenLesson(item.id);
+                }}
+              />
+            ))
+          ) : (
+            <p className="col-span-full text-center py-10 text-[var(--muted)] text-sm">
+              Nenhuma aula encontrada para "{query}".
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
+const MobileNav = ({
+  onGoHome,
+  onOpenModule,
+  onOpenSearch
+}) => {
+  return (
+    <nav className="sm:hidden fixed z-[70] left-3 right-3 bottom-3 h-16 rounded-[20px] bg-[#0d1711f2] backdrop-blur-xl border border-white/15 grid grid-cols-4 shadow-2xl shadow-black/80">
+      <button
+        onClick={onGoHome}
+        className="border-0 bg-transparent text-[#a5b2a7] hover:text-white flex flex-col justify-center items-center gap-0.5 text-[10px] font-semibold cursor-pointer"
+      >
+        <span className="text-xl">🏠</span>
+        Início
+      </button>
+      <button
+        onClick={() => onOpenModule('spiral_characters')}
+        className="border-0 bg-transparent text-[#a5b2a7] hover:text-white flex flex-col justify-center items-center gap-0.5 text-[10px] font-semibold cursor-pointer"
+      >
+        <span className="text-lg">🧸</span>
+        Pingentes
+      </button>
+      <button
+        onClick={() => onOpenModule('spiral_decorations')}
+        className="border-0 bg-transparent text-[#a5b2a7] hover:text-white flex flex-col justify-center items-center gap-0.5 text-[10px] font-semibold cursor-pointer"
+      >
+        <span className="text-lg">🎄</span>
+        Árvores
+      </button>
+      <button
+        onClick={onOpenSearch}
+        className="border-0 bg-transparent text-[#a5b2a7] hover:text-white flex flex-col justify-center items-center gap-0.5 text-[10px] font-semibold cursor-pointer"
+      >
+        <span className="text-lg">🔍</span>
+        Buscar
+      </button>
+    </nav>
+  );
+};
 
-<div class="card">
-  <div class="cover">
-    <span>10</span>
-  </div>
-  <div class="info">
-    <h3>Aula 10</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/8IuCsj8kJHQ" target="_blank">Assistir agora</a>
-  </div>
-</div>
+const LessonView = ({
+  lesson,
+  currentModule,
+  completedIds,
+  dynamicTitles,
+  onToggleComplete,
+  onSelectLesson,
+  onGoHome
+}) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  const activeItemRef = React.useRef(null);
+  const playlistContainerRef = React.useRef(null);
+  const currentIndex = currentModule.lessons.findIndex((l) => l.id === lesson.id);
+  const isCompleted = completedIds.includes(lesson.id);
+  const currentTitle = cleanTitle(dynamicTitles[lesson.youtubeId] || lesson.title);
 
+  React.useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-<div class="card">
-  <div class="cover">
-    <span>11</span>
-  </div>
-  <div class="info">
-    <h3>Aula 11</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/v35Q7QLmZPo" target="_blank">Assistir agora</a>
-  </div>
-</div>
+    requestAnimationFrame(() => {
+      const playerElement = document.getElementById('player');
+      if (playerElement) {
+        playerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
 
+    if (playlistContainerRef.current && activeItemRef.current) {
+      const container = playlistContainerRef.current;
+      const item = activeItemRef.current;
+      const targetScroll = item.offsetTop - container.offsetTop - 12;
+      container.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
+    }
 
-<div class="card">
-  <div class="cover">
-    <span>12</span>
-  </div>
-  <div class="info">
-    <h3>Aula 12</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/YmiQL_s9BOY" target="_blank">Assistir agora</a>
-  </div>
-</div>
+    return () => clearTimeout(timer);
+  }, [lesson.id]);
 
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      onSelectLesson(currentModule.lessons[currentIndex - 1].id);
+    }
+  };
 
-<div class="card">
-  <div class="cover">
-    <span>13</span>
-  </div>
-  <div class="info">
-    <h3>Aula 13</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/elBQgtOArkU" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  const handleNext = () => {
+    if (currentIndex < currentModule.lessons.length - 1) {
+      onSelectLesson(currentModule.lessons[currentIndex + 1].id);
+    } else {
+      onGoHome();
+    }
+  };
 
+  return (
+    <main className="min-h-screen pt-[calc(var(--nav)+18px)] pb-28">
+      <div className="w-[min(1400px,calc(100%-48px))] max-sm:w-[calc(100%-24px)] mx-auto">
+        <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
+          <button
+            onClick={onGoHome}
+            className="flex items-center gap-2 text-sm font-extrabold text-[var(--muted)] hover:text-white bg-transparent border-0 cursor-pointer transition-colors p-0"
+          >
+            ‹ Voltar para o início
+          </button>
+          <span className="text-xs px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.05] text-[#ebeee9] font-bold flex items-center gap-1.5">
+            <span className="text-[var(--gold)]">■</span>
+            {currentModule.title} • Aula {lesson.order} de {currentModule.lessons.length}
+          </span>
+        </div>
+        <div className="grid grid-cols-[minmax(0,1fr)_390px] max-lg:grid-cols-1 gap-7 items-start">
+          <section className="space-y-5">
+            <div
+              id="player"
+              className="scroll-mt-[calc(var(--nav)+14px)] aspect-video bg-[#020302] border border-white/15 rounded-[20px] max-sm:rounded-xl overflow-hidden relative shadow-2xl shadow-black/80 ring-1 ring-white/5"
+            >
+              {isLoading && (
+                <div className="absolute inset-0 z-10 grid place-items-center bg-gradient-to-br from-[#121c15] to-[#070d09] text-[var(--muted)]">
+                  <div className="text-center p-4">
+                    <div className="w-9 h-9 border-[3px] border-white/15 border-t-[var(--gold)] rounded-full spin mx-auto mb-3" />
+                    <span className="text-xs font-bold text-[#e6ece7]">Abrindo videoaula...</span>
+                  </div>
+                </div>
+              )}
+              <iframe
+                key={lesson.youtubeId}
+                src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(lesson.youtubeId)}?hl=pt-BR&hl_lang=pt-BR&cc_lang_pref=pt&cc_load_policy=1&rel=0&playsinline=1&modestbranding=1`}
+                title={currentTitle}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                onLoad={() => setIsLoading(false)}
+                className="absolute inset-0 w-full h-full border-0"
+              />
+            </div>
+            <div className="p-4 sm:p-5 rounded-2xl border border-[rgba(228,190,113,0.35)] bg-gradient-to-br from-[#17221b] via-[#101913] to-[#0a110d] shadow-xl shadow-amber-950/20">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">🎧</span>
+                <h4 className="text-sm sm:text-base font-black text-[var(--gold)] m-0 tracking-tight">
+                  Como ouvir a aula com voz dublada em Português
+                </h4>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-2.5 sm:gap-3 text-xs">
+                <div className="bg-white/[0.04] border border-white/10 rounded-xl p-3 flex sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5">
+                  <span className="w-6 h-6 rounded-full bg-[var(--gold)] text-[#120f09] font-black grid place-items-center text-xs flex-shrink-0">1</span>
+                  <div>
+                    <strong className="block text-white">Dê Pause</strong>
+                    <span className="text-[#aab6ad] text-[11px] leading-tight">Clique no vídeo para pausar.</span>
+                  </div>
+                </div>
+                <div className="bg-white/[0.04] border border-white/10 rounded-xl p-3 flex sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5">
+                  <span className="w-6 h-6 rounded-full bg-[var(--gold)] text-[#120f09] font-black grid place-items-center text-xs flex-shrink-0">2</span>
+                  <div>
+                    <strong className="block text-white">Engrenagem ⚙️</strong>
+                    <span className="text-[#aab6ad] text-[11px] leading-tight">Clique no canto superior direito do vídeo.</span>
+                  </div>
+                </div>
+                <div className="bg-white/[0.04] border border-white/10 rounded-xl p-3 flex sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5">
+                  <span className="w-6 h-6 rounded-full bg-[var(--gold)] text-[#120f09] font-black grid place-items-center text-xs flex-shrink-0">3</span>
+                  <div>
+                    <strong className="block text-white">Faixa de Áudio</strong>
+                    <span className="text-[#aab6ad] text-[11px] leading-tight">Toque na opção de Áudio ou Idioma.</span>
+                  </div>
+                </div>
+                <div className="bg-white/[0.04] border border-white/10 rounded-xl p-3 flex sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5">
+                  <span className="w-6 h-6 rounded-full bg-[var(--green)] text-[#10180f] font-black grid place-items-center text-xs flex-shrink-0">4</span>
+                  <div>
+                    <strong className="block text-white">Selecione Português</strong>
+                    <span className="text-[#aab6ad] text-[11px] leading-tight">Dê play para ouvir dublado!</span>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-3 pt-2.5 border-t border-white/10 text-[11px] text-[#c9d4cc] flex items-center gap-1.5">
+                <span className="text-[var(--gold)]">💡</span>
+                <span><strong>Dica:</strong> Uma vez selecionado, o YouTube geralmente mantém o áudio em português ativado para as próximas aulas automaticamente.</span>
+              </div>
+            </div>
+            <div className="py-2 px-1">
+              <div className="text-[var(--gold)] text-[10px] tracking-[2px] uppercase font-black">
+                Assistindo agora • {currentModule.title}
+              </div>
+              <h1 className="text-[clamp(24px,3.2vw,36px)] max-sm:text-[22px] leading-snug tracking-tight my-2 font-black text-white break-words">
+                {currentTitle}
+              </h1>
+              <p className="text-[var(--muted)] leading-relaxed text-sm m-0 max-w-3xl">
+                {currentModule.description}
+              </p>
+              <div className="flex flex-wrap gap-3 mt-5">
+                <button
+                  onClick={() => onToggleComplete(lesson.id)}
+                  className={`h-11 px-6 rounded-[12px] font-black text-xs flex items-center justify-center gap-2 cursor-pointer transition-all border-0 ${
+                    isCompleted
+                      ? 'bg-white/[0.12] text-white hover:bg-white/[0.18]'
+                      : 'bg-[var(--gold)] text-[#141209] hover:bg-[#edd49d] shadow-lg shadow-amber-950/40'
+                  }`}
+                >
+                  {isCompleted ? '✓ Aula concluída' : '✔ Marcar como concluída'}
+                </button>
+                <a
+                  href={lesson.youtubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-11 px-5 rounded-[12px] font-bold text-xs border border-[var(--line)] bg-transparent hover:bg-white/[0.06] text-white inline-flex items-center justify-center gap-2 no-underline transition-colors"
+                >
+                  Abrir no YouTube ↗
+                </a>
+              </div>
+              <div className="flex justify-between items-center gap-3 pt-5 mt-6 border-t border-[var(--line)]">
+                <button
+                  onClick={handlePrev}
+                  disabled={currentIndex === 0}
+                  className={`h-11 px-5 rounded-[12px] font-extrabold text-xs border border-[var(--line)] bg-transparent text-white cursor-pointer transition-opacity ${
+                    currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/[0.06]'
+                  }`}
+                >
+                  ‹ Anterior
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="h-11 px-6 rounded-[12px] font-black text-xs bg-[var(--gold)] hover:bg-[#ebd296] text-[#141209] border-0 cursor-pointer transition-transform hover:-translate-y-0.5 shadow-md shadow-amber-950/20"
+                >
+                  {currentIndex === currentModule.lessons.length - 1 ? 'Voltar ao início' : 'Próxima aula ›'}
+                </button>
+              </div>
+            </div>
+          </section>
+          <aside className="sticky top-[calc(var(--nav)+18px)] max-h-[calc(100vh-var(--nav)-36px)] max-lg:max-h-[500px] max-lg:static bg-[var(--card)] border border-white/10 rounded-[20px] overflow-hidden flex flex-col shadow-xl shadow-black/40">
+            <div className="p-4 border-b border-[var(--line)] bg-white/[0.02]">
+              <h3 className="text-base font-bold m-0 mb-1 text-white flex items-center gap-2">
+                <span>📑</span> {currentModule.title}
+              </h3>
+              <p className="text-xs text-[var(--muted)] m-0">
+                {currentModule.lessons.length} videoaulas nesta trilha
+              </p>
+            </div>
+            <div
+              ref={playlistContainerRef}
+              className="p-2 overflow-y-auto space-y-1.5 flex-1 scroll-smooth"
+            >
+              {currentModule.lessons.map((item) => {
+                const isActive = item.id === lesson.id;
+                const itemDone = completedIds.includes(item.id);
+                const itemTitle = cleanTitle(dynamicTitles[item.youtubeId] || item.title);
+                return (
+                  <button
+                    key={item.id}
+                    ref={isActive ? activeItemRef : null}
+                    onClick={() => onSelectLesson(item.id)}
+                    title={itemTitle}
+                    className={`w-full grid grid-cols-[104px_1fr] gap-3 p-2.5 rounded-xl text-left cursor-pointer transition-colors border-0 ${
+                      isActive
+                        ? 'bg-white/[0.1] ring-1 ring-[var(--gold)]/60'
+                        : 'bg-transparent hover:bg-white/[0.04]'
+                    }`}
+                  >
+                    <div className="aspect-video rounded-lg overflow-hidden bg-[#18261c] relative flex-shrink-0">
+                      <img
+                        src={getThumbnailUrl(item)}
+                        alt={itemTitle}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div className="min-w-0 flex flex-col justify-center">
+                      <small className="block text-[var(--gold)] text-[9px] tracking-wider uppercase font-black">
+                        Aula {String(item.order).padStart(2, '0')}
+                        {item.isNew ? ' • NATAL 🎅' : ''}
+                      </small>
+                      <strong className="block text-xs font-semibold text-white line-clamp-3 leading-snug mt-0.5 break-words">
+                        {itemTitle} {itemDone && <span className="text-[var(--green)]">✓</span>}
+                      </strong>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  );
+};
 
-<div class="card">
-  <div class="cover">
-    <span>14</span>
-  </div>
-  <div class="info">
-    <h3>Aula 14</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/onSB617Q9AE" target="_blank">Assistir agora</a>
-  </div>
-</div>
+const Toast = ({ message }) => {
+  if (!message) return null;
+  return (
+    <div className="fixed z-[120] left-1/2 bottom-7 -translate-x-1/2 bg-[#f1efe8] text-[#111510] px-5 py-3 rounded-full text-xs font-black shadow-2xl transition-all duration-200 animate-in fade-in slide-in-from-bottom-2">
+      {message}
+    </div>
+  );
+};
 
+const STORAGE_KEY = 'amigurumi-espiral-natal-v1';
 
-<div class="card">
-  <div class="cover">
-    <span>15</span>
-  </div>
-  <div class="info">
-    <h3>Aula 15</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/LWlPbZg9xj0" target="_blank">Assistir agora</a>
-  </div>
-</div>
+const App = () => {
+  const [userState, setUserState] = React.useState(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        return {
+          completed: Array.isArray(parsed.completed) ? parsed.completed : [],
+          last: parsed.last || null,
+          titles: parsed.titles || {},
+        };
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { completed: [], last: null, titles: {} };
+  });
 
+  const [activeLessonId, setActiveLessonId] = React.useState(null);
+  const [isSearchOpen, setIsSearchOpen] = React.useState(false);
+  const [toastMessage, setToastMessage] = React.useState(null);
+  const [isScrolled, setIsScrolled] = React.useState(false);
 
-<div class="card">
-  <div class="cover">
-    <span>16</span>
-  </div>
-  <div class="info">
-    <h3>Aula 16</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/o_12Iob4euE" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  const modules = INITIAL_MODULES;
+  const allLessons = React.useMemo(() => {
+    return modules.flatMap((m) =>
+      m.lessons.map((l) => ({
+        ...l,
+        title: l.title,
+        moduleId: m.id,
+        moduleTitle: m.title,
+        moduleDescription: m.description,
+      }))
+    );
+  }, [modules]);
 
+  const saveState = React.useCallback((updater) => {
+    setUserState((prev) => {
+      const next = updater(prev);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      } catch (e) {
+        console.error(e);
+      }
+      return next;
+    });
+  }, []);
 
-<div class="card">
-  <div class="cover">
-    <span>17</span>
-  </div>
-  <div class="info">
-    <h3>Aula 17</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/ei9-9OkecF4" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  const showToast = React.useCallback((msg) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage((current) => (current === msg ? null : current));
+    }, 2200);
+  }, []);
 
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 14);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-<div class="card">
-  <div class="cover">
-    <span>18</span>
-  </div>
-  <div class="info">
-    <h3>Aula 18</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/EVklNjqugS4" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  React.useEffect(() => {
+    const handleRoute = () => {
+      const params = new URLSearchParams(window.location.hash.slice(1));
+      const aula = params.get('aula');
+      if (aula && ALL_LESSONS.some((l) => l.id === aula)) {
+        setActiveLessonId(aula);
+      } else {
+        setActiveLessonId(null);
+      }
+    };
+    handleRoute();
+    window.addEventListener('popstate', handleRoute);
+    return () => window.removeEventListener('popstate', handleRoute);
+  }, []);
 
+  const openLesson = React.useCallback(
+    (lessonId, pushHistory = true) => {
+      const found = ALL_LESSONS.find((l) => l.id === lessonId);
+      if (!found) return;
+      setActiveLessonId(lessonId);
+      saveState((prev) => ({ ...prev, last: lessonId }));
 
-<div class="card">
-  <div class="cover">
-    <span>19</span>
-  </div>
-  <div class="info">
-    <h3>Aula 19</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/eL3V_0f-ZII" target="_blank">Assistir agora</a>
-  </div>
-</div>
+      if (pushHistory) {
+        window.history.pushState(
+          { id: lessonId },
+          '',
+          `#aula=${encodeURIComponent(lessonId)}`
+        );
+      }
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          const player = document.getElementById('player');
+          if (player) {
+            player.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, 40);
+      });
+    },
+    [saveState]
+  );
 
+  const goHome = React.useCallback((pushHistory = true) => {
+    setActiveLessonId(null);
+    if (pushHistory) {
+      window.history.pushState({}, '', window.location.pathname);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
-<div class="card">
-  <div class="cover">
-    <span>20</span>
-  </div>
-  <div class="info">
-    <h3>Aula 20</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/RLL3aouPJYU" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  const openModule = React.useCallback(
+    (moduleId) => {
+      const m = modules.find((x) => x.id === moduleId);
+      if (!m) return;
+      const targetLesson =
+        m.lessons.find((l) => !userState.completed.includes(l.id)) || m.lessons[0];
+      if (targetLesson) {
+        openLesson(targetLesson.id);
+      }
+    },
+    [modules, userState.completed, openLesson]
+  );
 
+  const scrollToSection = React.useCallback((sectionId) => {
+    setActiveLessonId(null);
+    window.history.pushState({}, '', window.location.pathname);
+    setTimeout(() => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
+  }, []);
 
-<div class="card">
-  <div class="cover">
-    <span>21</span>
-  </div>
-  <div class="info">
-    <h3>Aula 21</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/dYKMWY1lIW8" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  const toggleComplete = React.useCallback(
+    (lessonId) => {
+      const alreadyDone = userState.completed.includes(lessonId);
+      saveState((prev) => ({
+        ...prev,
+        completed: alreadyDone
+          ? prev.completed.filter((id) => id !== lessonId)
+          : [...prev.completed, lessonId],
+      }));
+      showToast(alreadyDone ? 'Aula removida das concluídas' : 'Aula concluída');
+    },
+    [userState.completed, saveState, showToast]
+  );
 
+  const handleResetProgress = React.useCallback(() => {
+    if (window.confirm('Apagar o progresso salvo neste aparelho?')) {
+      saveState((prev) => ({
+        ...prev,
+        completed: [],
+        last: null,
+      }));
+      showToast('Progresso reiniciado');
+    }
+  }, [saveState, showToast]);
 
-<div class="card">
-  <div class="cover">
-    <span>22</span>
-  </div>
-  <div class="info">
-    <h3>Aula 22</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/VGXk6PEu85o" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  const handleHelpInfo = React.useCallback(() => {
+    alert(
+      'Áudio em Português: Os vídeos possuem faixa de áudio dublada em português pelo YouTube. O player solicita essa faixa automaticamente. Se por algum motivo o vídeo tocar no idioma original no seu dispositivo, basta clicar no ícone de engrenagem ⚙️ no player e selecionar "Faixa de áudio: Português".'
+    );
+  }, []);
 
+  const progressPct = Math.round(
+    (userState.completed.length / ALL_LESSONS.length) * 100
+  );
+  const currentActiveLesson = activeLessonId
+    ? allLessons.find((l) => l.id === activeLessonId) || null
+    : null;
+  const currentModule = currentActiveLesson
+    ? modules.find((m) => m.id === currentActiveLesson.moduleId) || modules[0]
+    : null;
+  const lastLesson = React.useMemo(() => {
+    return (
+      allLessons.find((l) => l.id === userState.last) ||
+      allLessons[0]
+    );
+  }, [allLessons, userState.last]);
 
-<div class="card">
-  <div class="cover">
-    <span>23</span>
-  </div>
-  <div class="info">
-    <h3>Aula 23</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/QLQE9ujUhE0" target="_blank">Assistir agora</a>
-  </div>
-</div>
+  return (
+    <div className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--text)] antialiased">
+      <Header
+        progressPct={progressPct}
+        onGoHome={() => goHome(true)}
+        onScrollTo={scrollToSection}
+        onOpenSearch={() => setIsSearchOpen(true)}
+        isScrolled={isScrolled}
+      />
+      {currentActiveLesson && currentModule ? (
+        <LessonView
+          lesson={currentActiveLesson}
+          currentModule={currentModule}
+          completedIds={userState.completed}
+          dynamicTitles={userState.titles}
+          onToggleComplete={toggleComplete}
+          onSelectLesson={(id) => openLesson(id, true)}
+          onGoHome={() => goHome(true)}
+        />
+      ) : (
+        <main id="home">
+          <Hero
+            totalLessons={ALL_LESSONS.length}
+            onContinue={() => openLesson(lastLesson.id, true)}
+            onExplore={() => scrollToSection('trilhas')}
+          />
+          <div className="w-[min(1400px,calc(100%-48px))] max-sm:w-[calc(100%-28px)] mx-auto -mt-9 max-sm:-mt-4 pb-24">
+            <ContinueSection
+              lesson={lastLesson}
+              progressPct={progressPct}
+              onOpenLesson={(id) => openLesson(id, true)}
+            />
+            <TrilhasSection
+              modules={modules}
+              completedIds={userState.completed}
+              dynamicTitles={userState.titles}
+              onOpenLesson={(id) => openLesson(id, true)}
+              onOpenModule={openModule}
+            />
+            <FeatureSection onExploreSales={() => openModule('sales')} />
+            <MateriaisSection
+              onResetProgress={handleResetProgress}
+              onHelpInfo={handleHelpInfo}
+            />
+          </div>
+        </main>
+      )}
+      <SearchOverlay
+        isOpen={isSearchOpen}
+        allLessons={allLessons}
+        completedIds={userState.completed}
+        dynamicTitles={userState.titles}
+        onClose={() => setIsSearchOpen(false)}
+        onOpenLesson={(id) => openLesson(id, true)}
+      />
+      <Toast message={toastMessage} />
+      <Footer />
+      <MobileNav
+        onGoHome={() => goHome(true)}
+        onOpenModule={openModule}
+        onOpenSearch={() => setIsSearchOpen(true)}
+      />
+    </div>
+  );
+};
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
 
-<div class="card">
-  <div class="cover">
-    <span>24</span>
-  </div>
-  <div class="info">
-    <h3>Aula 24</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/qQdigGwSyQ8" target="_blank">Assistir agora</a>
-  </div>
-</div>
-
-
-<div class="card">
-  <div class="cover">
-    <span>25</span>
-  </div>
-  <div class="info">
-    <h3>Aula 25</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/3ZoSV_hEOYY" target="_blank">Assistir agora</a>
-  </div>
-</div>
-
-
-<div class="card">
-  <div class="cover">
-    <span>26</span>
-  </div>
-  <div class="info">
-    <h3>Aula 26</h3>
-    <p>Técnica de amigurumi em espiral • Aula premium</p>
-    <a href="https://youtu.be/YqjwkBtBeRY" target="_blank">Assistir agora</a>
-  </div>
-</div>
-</div>
-</section>
-<footer>Amigurumi Espiral Premium</footer>
-</body>
+    </script>
+  </body>
 </html>
